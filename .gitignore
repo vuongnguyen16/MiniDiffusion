@@ -1,0 +1,27 @@
+# Python and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Datasets, checkpoints, generated samples and evaluation results
+/data/
+/logs/
+/stats/
+/Output/
+/outputs/
+/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.npz
+*.npy
+*.tmp
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
