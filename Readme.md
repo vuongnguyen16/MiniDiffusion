@@ -6,8 +6,9 @@ A DDPM baseline for unconditional CIFAR-10 generation, trained for
 PyTorch implementation of [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239).
 
 This repository contains training, EMA sampling, and FID/Inception Score code.
-Datasets, trained weights, generated images, and logs are created locally and
-excluded from Git.
+Datasets, generated images, and logs are excluded from Git. A pretrained
+**200k EMA checkpoint** is available in [checkpoints/200k](checkpoints/200k/).
+Its weights are downloaded from GitHub Releases.
 
 ## Setup
 
@@ -50,6 +51,21 @@ python -m pip install torch==2.7.1 torchvision==0.22.1 --index-url https://downl
 For other GPU/OS combinations, use the matching command in the
 [PyTorch 2.7.1 installation instructions](https://pytorch.org/get-started/previous-versions/#v271),
 then install `requirements.txt`. TensorFlow is not required.
+
+## Use the pretrained 200k model
+
+After setup, run these commands from the repository root to generate images
+without training:
+
+```bash
+python checkpoints/200k/download.py
+python main.py --flagfile ./checkpoints/200k/flagfile.txt --sample
+```
+
+The checkpoint is verified with SHA-256 and saved to
+`checkpoints/200k/ckpt.pt`. The sample grid is written to
+`checkpoints/200k/samples_ema.png`. See the [checkpoint folder](checkpoints/200k/)
+for model details, direct downloads, and evaluation commands.
 
 ## Train
 
@@ -154,6 +170,7 @@ claim to reproduce the upstream 800k configuration's published scores.
 
 ```text
 config/CIFAR10.txt       # 200k baseline configuration
+checkpoints/200k/        # pretrained 200k EMA model configuration and downloader
 main.py                 # train, EMA sampling, and evaluation
 model.py                # upstream UNet architecture
 diffusion.py            # forward diffusion and DDPM sampler

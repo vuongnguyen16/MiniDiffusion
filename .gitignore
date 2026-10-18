@@ -11,7 +11,7 @@ venv/
 /stats/
 /Output/
 /outputs/
-/checkpoints/
+/checkpoints/**/samples_ema.png
 *.pt
 *.pth
 *.ckpt
