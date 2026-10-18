@@ -159,7 +159,6 @@ model.py                # upstream UNet architecture
 diffusion.py            # forward diffusion and DDPM sampler
 score/                  # upstream Inception/FID implementation
 requirements.txt
-LICENSE
 ```
 
 The UNet and original training/scoring structure are retained. Changes include
@@ -168,6 +167,6 @@ standalone sampling, device/seed selection, modern dependencies, EMA eval mode
 during sampling, and sampler fixes (valid mean-type choices and clipping
 predicted x0 before computing the posterior mean).
 
-The upstream project's [WTFPL license](LICENSE) is retained. Credit to
+Credit to
 [w86763777](https://github.com/w86763777) for the original implementation and
 the cited sources in `score/` for the Inception/FID utilities.
