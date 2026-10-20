@@ -201,8 +201,8 @@ def bank_batch(root, index):
 
 
 def condition_path(root, scale):
-    if float(scale) not in (0., .1, .5, 1.):
-        raise ValueError('Supported noise scales: 0, 0.1, 0.5, 1')
+    if float(scale) not in (0., .1, .5, .75, .9, 1., 1.1, 1.25):
+        raise ValueError('Supported noise scales: 0, 0.1, 0.5, 0.75, 0.9, 1, 1.1, 1.25')
     return Path(root)/f'lambda_{float(scale):g}'
 
 

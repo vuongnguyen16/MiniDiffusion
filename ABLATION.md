@@ -5,6 +5,10 @@ bank**, EMA weights and all 1,000 timesteps. Lambda multiplies the **standard
 deviation**. Mean-only is not DDIM and is not a timestep acceleration method.
 No training is performed. The original `main.py` entrypoints remain available.
 
+The qualitative supplement probes `lambda=0.75, 0.9, 1.1, 1.25` with **128 images
+per new condition**, reusing the first 128 evaluation inputs and the saved
+`lambda=1` controls. It computes no FID/IS and does not extend the 5,000-image runs.
+
 The source base is `f38fbe8ae1a465578b438ecdc3d058aa383981b7`. The runner records
 SHA-256 hashes of source files, checkpoint and reference statistics. It requires
 the 200k checkpoint, complete training config, epsilon/fixedlarge, linear beta
@@ -28,6 +32,13 @@ The ZIP keeps original artifacts at its root and new artifacts under
 Historical execution and cost estimates are recorded in the report. Temporary
 Modal launch/download scripts are removed after completing the experiment.
 
+The [128-image qualitative supplement](ablation/reverse_noise/ema200k/qualitative_128/README.md)
+contains all 128 IDs in fixed order: individual grids for five conditions,
+eight paired comparison pages, and one ZIP with original PNGs, float tensors,
+input banks and verification metadata. Each paired row uses the same x_T and
+reverse seed. These use the evaluation bank, so their IDs do not refer to the
+independent 64-image preview above.
+
 ## Local CLI
 
 ```bash
@@ -42,7 +53,9 @@ python -m unittest discover -s tests -v
 ```
 
 `--seed-init`, `--seed-reverse`, `--noise-scale 1 0` control the protocol.
-The generation/metric runner supports `--noise-scale 1 0.5 0.1 0` in a new run.
+The generation/metric runner supports scales `0, 0.1, 0.5, 0.75, 0.9, 1, 1.1, 1.25`
+in a new run. Use `--num-images 128 --batch-size 64` for a small qualitative run;
+do not invoke `metrics` for this visual comparison.
 The original paired preview mode retains the fixed `[1, 0]` layout. The
 0.5/0.1 supplement uses an independent output protocol with copied original x_T
 banks, preserving the original 1/0 protocols and result manifests.

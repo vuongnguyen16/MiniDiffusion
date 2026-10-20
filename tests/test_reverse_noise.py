@@ -66,12 +66,12 @@ class ArtifactTests(unittest.TestCase):
         sampler = GaussianDiffusionSampler(Epsilon(), 1e-4, .02, 4, img_size=4)
         protocol = {'config': {'img_size': 4}, 'checkpoint_sha256': 'fixture',
                     'batch_size': 2, 'seed_init': 2026, 'seed_reverse': 10001,
-                    'noise_scales': [.5, .1], 'purpose': 'extension-test'}
+                    'noise_scales': [.5, .1, .75, .9, 1.1, 1.25], 'purpose': 'extension-test'}
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             prepare_run(root, protocol, 3)
             before = bank_batch(root, 0).clone()
-            for scale in [.5, .1]:
+            for scale in protocol['noise_scales']:
                 generate(sampler, root, scale, 3, torch.device('cpu'))
                 actual = torch.stack([torch.from_numpy(x) for x in read_images(root, scale, 3)])
                 expected = (sampler(before, scale, torch.Generator().manual_seed(10001)) + 1) / 2
