@@ -22,6 +22,8 @@ Its compact layout contains `report_vi.md`, `metrics.csv`, `figures/` and
 `reproducibility.zip`. Metadata, tensor chunks, input banks, test logs and
 reference statistics are inside the ZIP. Extract it into the run directory to
 inspect the evidence or recalculate metrics; no new sampling is needed.
+Reports, CSV and figures are tracked on GitHub. Reproducibility ZIPs stay local
+and are excluded by `.gitignore`; they are not downloadable from the repository.
 The report compares four conditions at N=5,000 each: lambda=1, 0.5, 0.1 and 0.
 The supplement reuses the exact original input banks, checkpoint, reverse seeds
 and Inception/reference pipeline; full-batch baseline replay on both sampling
