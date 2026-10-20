@@ -51,7 +51,6 @@ python ablation_sampling.py generate --output-dir ablation/reverse_noise/local -
 python ablation_sampling.py generate --output-dir ablation/reverse_noise/local --num-images 5000 --batch-size 64 --resume
 # metrics takes the evaluation subdirectory (no model sampling):
 python ablation_sampling.py metrics --output-dir ablation/reverse_noise/local/evaluation --num-images 5000 --fid-cache stats/cifar10.train.npz
-python -m unittest discover -s tests -v
 ```
 
 `--seed-init`, `--seed-reverse`, `--noise-scale 1 0` control the protocol.
