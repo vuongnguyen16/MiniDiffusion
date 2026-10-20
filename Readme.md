@@ -6,6 +6,8 @@ A DDPM baseline for unconditional CIFAR-10 generation, trained for
 PyTorch implementation of [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239).
 
 This repository contains training, EMA sampling, and FID/Inception Score code.
+For the paired reverse-noise experiment (DDPM versus mean-only), see
+[ABLATION.md](ABLATION.md), including the saved report and local CLI.
 Datasets, generated images, and logs are excluded from Git. A pretrained
 **200k EMA checkpoint** is available in [checkpoints/200k](checkpoints/200k/).
 Its weights are downloaded from GitHub Releases.

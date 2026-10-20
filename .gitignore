@@ -11,6 +11,8 @@ venv/
 /stats/
 /Output/
 /outputs/
+/ablation/
+/.superpowers/
 /checkpoints/**/samples_ema.png
 *.pt
 *.pth
