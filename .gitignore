@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 venv/
 .env
+/tests/
 
 # Datasets, checkpoints, generated samples and evaluation results
 /data/
@@ -11,7 +12,8 @@ venv/
 /stats/
 /Output/
 /outputs/
-/ablation/
+# Publish ablation reports/figures; keep bulky reproducibility archives local
+/ablation/**/*.zip
 /.superpowers/
 /checkpoints/**/samples_ema.png
 *.pt
