@@ -1,3 +1,4 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -146,19 +147,29 @@ class GaussianDiffusionSampler(nn.Module):
 
         return model_mean, model_log_var
 
-    def forward(self, x_T):
+    def forward(self, x_T, noise_scale=1.0, generator=None):
         """
         Algorithm 2.
         """
+        noise_scale = float(noise_scale)
+        if not math.isfinite(noise_scale) or noise_scale < 0:
+            raise ValueError('noise_scale must be finite and nonnegative')
         x_t = x_T
         for time_step in reversed(range(self.T)):
             t = x_t.new_ones([x_T.shape[0], ], dtype=torch.long) * time_step
             mean, log_var = self.p_mean_variance(x_t=x_t, t=t)
+            if noise_scale == 0:
+                x_t = mean
+                continue
             # no noise when t == 0
             if time_step > 0:
-                noise = torch.randn_like(x_t)
+                if generator is None:
+                    noise = torch.randn_like(x_t)
+                else:
+                    noise = torch.randn(x_t.shape, dtype=x_t.dtype,
+                                        device=x_t.device, generator=generator)
             else:
                 noise = 0
-            x_t = mean + torch.exp(0.5 * log_var) * noise
+            x_t = mean + noise_scale * torch.exp(0.5 * log_var) * noise
         x_0 = x_t
         return torch.clip(x_0, -1, 1)
